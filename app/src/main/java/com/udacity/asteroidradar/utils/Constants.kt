@@ -6,4 +6,5 @@ object Constants {
     const val BASE_URL = "https://api.nasa.gov/"
     const val API_KEY = "dZNonfABWLnqnJg8bazIRLQKLemyCfKQ2MJ3ZhqQ"
     const val DATABASE_NAME = "asteroid_database"
+    const val WORK_NAME = "RefreshDataWorker"
 }
