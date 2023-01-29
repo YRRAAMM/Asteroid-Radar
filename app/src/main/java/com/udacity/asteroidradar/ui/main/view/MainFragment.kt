@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.udacity.asteroidradar.R
 import com.udacity.asteroidradar.databinding.FragmentMainBinding
 import com.udacity.asteroidradar.ui.main.viewmodel.MainViewModel
+import com.udacity.asteroidradar.ui.main.viewmodel.MainViewModelFactory
 
 class MainFragment : Fragment() {
 
@@ -22,6 +23,11 @@ class MainFragment : Fragment() {
         binding.lifecycleOwner = this
 
         binding.viewModel = viewModel
+
+        // adapter setting
+//        val adapter = MainFragmentAdapter()
+//        binding.asteroidRecycler.adapter = adapter
+
 
         return binding.root
     }
