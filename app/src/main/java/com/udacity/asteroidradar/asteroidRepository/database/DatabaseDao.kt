@@ -5,7 +5,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.udacity.asteroidradar.models.Asteroid
 
 @Dao
 interface DatabaseDao {
@@ -16,9 +15,10 @@ interface DatabaseDao {
     @Query("SELECT * FROM database_asteroids ORDER BY closeApproachDate")
     fun getAllAsteroids(): LiveData<List<Asteroid>>
 
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAsteroid(vararg asteroid: ArrayList<Asteroid>)
+    fun insertAsteroids(vararg asteroid: Asteroid)
+//    @Insert(onConflict = OnConflictStrategy.REPLACE)
+//    fun insertAsteroid(vararg asteroid: Array<Asteroid>)
 
     @Query("DELETE FROM database_asteroids WHERE closeApproachDate < :today")
     fun deleteAsteroids(today: String): Int

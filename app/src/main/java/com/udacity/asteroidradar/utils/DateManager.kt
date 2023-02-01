@@ -1,7 +1,6 @@
-package com.udacity.asteroidradar.asteroidRepository.database
+package com.udacity.asteroidradar.utils
 
 import android.annotation.SuppressLint
-import com.udacity.asteroidradar.utils.Constants
 import java.text.SimpleDateFormat
 import java.util.*
 

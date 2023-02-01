@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <!--        <variable -->
-        <!--            name=""-->
-        <!--            type=""/>-->
+                <variable
+                    name="asteroid"
+                    type="com.udacity.asteroidradar.asteroidRepository.database.Asteroid"/>
+
+                <variable
+                    name="onClicked"
+                    type= "com.udacity.asteroidradar.ui.main.view.MainFragmentAdapter"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,11 +25,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="@string/app_name"
+            android:text="@{asteroid.codename}"
             android:textColor="@color/default_text_color"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/app_name"/>
 
         <TextView
             android:id="@+id/textView3"
@@ -33,7 +39,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
-            android:text="@string/date_random"
+            android:text="@{asteroid.closeApproachDate}"
+            tools:text="@string/date_random"
             android:textColor="@color/default_text_color"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -51,6 +58,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/textView3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView2"
-            app:srcCompat="@drawable/ic_status_potentially_hazardous" />
+            app:srcCompat="@drawable/ic_status_potentially_hazardous"
+            app:statusIcon="@{asteroid.potentiallyHazardous}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

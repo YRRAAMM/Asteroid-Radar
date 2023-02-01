@@ -7,16 +7,15 @@ import com.udacity.asteroidradar.asteroidRepository.AsteroidRepository
 import com.udacity.asteroidradar.asteroidRepository.database.AsteroidDatabase
 import retrofit2.HttpException
 
-class RefreshDeleteDataWorker(appContext: Context, params: WorkerParameters):
+class DeleteWorker (appContext: Context, params: WorkerParameters):
     CoroutineWorker(appContext, params){
-
 
     override suspend fun doWork(): Result {
         val database = AsteroidDatabase.getInstance(applicationContext)
         val repository = AsteroidRepository(database)
 
         return try {
-            repository.refreshAsteroidsItems()
+            repository.deleteAsteroids()
             Result.success()
         } catch (e: HttpException) {
             Result.retry()
