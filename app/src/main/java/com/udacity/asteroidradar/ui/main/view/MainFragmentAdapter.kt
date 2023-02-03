@@ -1,5 +1,6 @@
 package com.udacity.asteroidradar.ui.main.view
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -11,7 +12,7 @@ import com.udacity.asteroidradar.databinding.AsteroidItemBinding
 class MainFragmentAdapter(private val onClickListener: OnClickListener):
     ListAdapter<Asteroid, MainFragmentAdapter.AsteroidItemViewHolder>(DiffCallback) {
 
-    override fun getItemCount() = TODO("Not yet implemented")
+//    override fun getItemCount() = TODO("Not yet implemented")
 
     // recycler the view
     override fun onBindViewHolder(holder: AsteroidItemViewHolder, position: Int) {

@@ -26,8 +26,11 @@ class MainFragment : Fragment() {
         binding.viewModel = viewModel
 
         // adapter setting
-//        val adapter = MainFragmentAdapter()
-//        binding.asteroidRecycler.adapter = adapter
+        val adapter = MainFragmentAdapter(MainFragmentAdapter.OnClickListener {
+            // intent thing goes here or make as he did in the github
+        })
+        binding.asteroidRecycler.adapter = adapter
+
 
 
         return binding.root
@@ -44,6 +47,11 @@ class MainFragment : Fragment() {
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                when (menuItem.itemId) {
+                    R.id.show_all_menu -> viewModel.asteroid
+                    R.id.show_week_menu -> viewModel.weekAsteroid
+                    R.id.show_today_menu -> viewModel.todayAsteroid
+                }
                 return true
             }
         })

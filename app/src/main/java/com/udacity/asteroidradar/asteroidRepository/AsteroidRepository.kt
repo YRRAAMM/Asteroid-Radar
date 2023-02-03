@@ -29,6 +29,15 @@ class AsteroidRepository(private val database: AsteroidDatabase) {
             it.asDomainModel()
         }
 
+    val thisWeek: LiveData<List<Ast_domain>> =
+        Transformations.map(database.databaseDao.getThisWeekAsteroids(DateManager.getToday(), DateManager.getSevenDaysLater())) {
+            it.asDomainModel()
+        }
+
+    val today: LiveData<List<Ast_domain>> =
+        Transformations.map(database.databaseDao.getThisDayAsteroids(DateManager.getToday())) {
+            it.asDomainModel()
+        }
     // handle the data that will be stored inside the database from the network.
 
     suspend fun deleteAsteroids() {
