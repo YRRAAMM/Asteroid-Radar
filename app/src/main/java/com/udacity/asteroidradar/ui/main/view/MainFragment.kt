@@ -73,13 +73,20 @@ class MainFragment : Fragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 when (menuItem.itemId) {
                     R.id.show_all_menu -> viewModel.asteroid.value?.let { adapter.submitList(it) }
-                    R.id.show_week_menu -> viewModel.thisWeekAsteroid.value?.let { adapter.submitList(it) }
-                    R.id.show_today_menu -> viewModel.todayAsteroid.value?.let { adapter.submitList(it) }
+                    R.id.show_week_menu -> viewModel.thisWeekAsteroid.value?.let {
+                        adapter.submitList(
+                            it
+                        )
+                    }
+                    R.id.show_today_menu -> viewModel.todayAsteroid.value?.let {
+                        adapter.submitList(
+                            it
+                        )
+                    }
                 }
                 return true
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
-
 
 }
