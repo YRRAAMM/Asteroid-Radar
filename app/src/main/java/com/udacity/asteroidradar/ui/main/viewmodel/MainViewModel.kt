@@ -1,7 +1,8 @@
 package com.udacity.asteroidradar.ui.main.viewmodel
 
 import android.app.Application
-import android.util.Log
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,55 +10,71 @@ import androidx.lifecycle.viewModelScope
 import com.udacity.asteroidradar.asteroidRepository.AsteroidRepository
 import com.udacity.asteroidradar.asteroidRepository.database.Asteroid
 import com.udacity.asteroidradar.asteroidRepository.database.AsteroidDatabase
-import com.udacity.asteroidradar.models.Ast_domain
 import com.udacity.asteroidradar.models.PictureOfDay
+import kotlinx.coroutines.Dispatchers
 
 import kotlinx.coroutines.launch
-import kotlin.reflect.jvm.internal.impl.storage.NotNullLazyValue
+import kotlinx.coroutines.withContext
+@RequiresApi(Build.VERSION_CODES.O)
 
 class MainViewModel(application: Application) : ViewModel() {
 
     private val database = AsteroidDatabase.getInstance(application)
     private val repository = AsteroidRepository(database)
 
+    private val _asteroid = MutableLiveData<List<Asteroid>>()
+    val asteroid : LiveData<List<Asteroid>>
+        get() = _asteroid
 
+    private val _thisWeekAsteroid = MutableLiveData<List<Asteroid>>()
+    val thisWeekAsteroid : LiveData<List<Asteroid>>
+        get() = _thisWeekAsteroid
 
-    val asteroid = repository.asteroids
-
-    private val _weekAsteroid = MutableLiveData<List<Ast_domain>>()
-    val weekAsteroid = repository.thisWeek
-
-    private val _todayAsteroid = MutableLiveData<Ast_domain>()
-    val todayAsteroid = repository.today
+    private val _todayAsteroid = MutableLiveData<List<Asteroid>>()
+    val todayAsteroid : LiveData<List<Asteroid>>
+        get() = _todayAsteroid
 
     private val _picture = MutableLiveData<PictureOfDay>()
     val pictureOfDay: LiveData<PictureOfDay>
         get() = _picture
 
     init {
+        todayAsteroids()
+        weekAsteroids()
+        asteroids()
+        refreshPhoto()
 
+    }
+    private fun weekAsteroids() {
         viewModelScope.launch {
-            repository.refreshAsteroidsItems()
-            refreshPhoto()
+            withContext(Dispatchers.IO) {
+                _thisWeekAsteroid.postValue(repository.thisWeek())
+            }
         }
     }
 
-
-    private suspend fun refreshPhoto() {
-        _picture.value = repository.getNetworkPicture()
+    private fun todayAsteroids() {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                _todayAsteroid.postValue(repository.today())
+            }
+        }
     }
 
-    private suspend fun allAsteroids(): LiveData<List<Ast_domain>> {
-        TODO("Not implemented yet")
+    private fun asteroids() {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                _asteroid.postValue(repository.asteroids())
+            }
+        }
     }
 
-    private suspend fun weekAsteroid() {
-        TODO("Not implemented yet")
-
-    }
-
-    private suspend fun todayAsteroid() {
-        TODO("Not implemented yet")
+    private fun refreshPhoto() {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                _picture.postValue(repository.getNetworkPicture())
+            }
+        }
     }
 
 

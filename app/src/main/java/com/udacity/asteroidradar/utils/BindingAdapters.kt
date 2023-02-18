@@ -47,9 +47,9 @@ fun setImageUrl(imageView: ImageView, pictureUrl: PictureOfDay?) {
     if (pictureUrl != null && pictureUrl.url.isNotBlank()) {
         Picasso.get().load(pictureUrl.url)
             .placeholder(R.drawable.placeholder_picture_of_day)
-            .error(R.drawable.ic_help_circle)
+            .error(R.drawable.ic_baseline_broken_image_24)
             .into(imageView)
     } else {
-        imageView.setImageResource(R.drawable.ic_help_circle)
+        imageView.setImageResource(R.drawable.ic_baseline_downloading_24)
     }
 }

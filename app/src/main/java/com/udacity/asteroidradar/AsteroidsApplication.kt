@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.work.*
 import androidx.work.ExistingPeriodicWorkPolicy.KEEP
 import com.udacity.asteroidradar.utils.Constants.WORK_NAME
-import com.udacity.asteroidradar.worker.DeleteWorker
 import com.udacity.asteroidradar.worker.RefreshDataWorker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -13,7 +12,7 @@ import java.util.concurrent.TimeUnit
 
 class AsteroidsApplication : Application() {
 
-    val applicationScope = CoroutineScope(Dispatchers.Default)
+    private val applicationScope = CoroutineScope(Dispatchers.Default)
 
     private fun delayedInit() {
         applicationScope.launch {
@@ -30,19 +29,12 @@ class AsteroidsApplication : Application() {
                 setRequiresDeviceIdle(true)
             }.build()
 
-        val repeatingInsertRequest
+        val insertRequest
                 = PeriodicWorkRequestBuilder<RefreshDataWorker>(1, TimeUnit.DAYS)
             .setConstraints(constraints)
             .build()
 
-        WorkManager.getInstance().enqueueUniquePeriodicWork(WORK_NAME, KEEP, repeatingInsertRequest)
-
-        val repeatingDeleteRequest
-                = PeriodicWorkRequestBuilder<DeleteWorker>(1, TimeUnit.DAYS)
-            .setConstraints(constraints)
-            .build()
-
-        WorkManager.getInstance().enqueueUniquePeriodicWork(WORK_NAME, KEEP, repeatingDeleteRequest)
+        WorkManager.getInstance().enqueueUniquePeriodicWork(WORK_NAME, KEEP, insertRequest)
 
     }
 
