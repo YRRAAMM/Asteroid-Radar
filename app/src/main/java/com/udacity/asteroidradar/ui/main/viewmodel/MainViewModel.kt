@@ -39,17 +39,22 @@ class MainViewModel(application: Application) : ViewModel() {
         get() = _picture
 
     init {
+        refreshPhoto()
+        getData()
+        asteroids()
         todayAsteroids()
         weekAsteroids()
-        asteroids()
-        refreshPhoto()
-
     }
     private fun weekAsteroids() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 _thisWeekAsteroid.postValue(repository.thisWeek())
             }
+        }
+    }
+    private fun getData() {
+        viewModelScope.launch {
+            repository.refreshAsteroidsItems()
         }
     }
 
