@@ -2,6 +2,8 @@ package com.udacity.asteroidradar.asteroidRepository
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.udacity.asteroidradar.asteroidRepository.api.APIBuilder.Network
 import com.udacity.asteroidradar.asteroidRepository.api.asDomainAsteroid
 
@@ -21,7 +23,8 @@ import org.json.JSONObject
 @RequiresApi(Build.VERSION_CODES.O)
 class AsteroidRepository(private val database: AsteroidDatabase) {
 
-    private val retrofit = Network.retrofitService
+    private val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+    private val retrofit = Network(moshi).retrofitService
 
 
     fun asteroids() = database.databaseDao.getAllAsteroids()

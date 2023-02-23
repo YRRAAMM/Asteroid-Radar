@@ -39,16 +39,6 @@ class MainFragment : Fragment() {
             )
         })
 
-//        viewModel.todayAsteroid.observe(viewLifecycleOwner) { asteroids ->
-//            // Update the adapter with the asteroids for the current day
-//            adapter.submitList(asteroids)
-//        }
-//
-//        viewModel.weekAsteroid.observe(viewLifecycleOwner) { asteroids ->
-//            // Update the adapter with the asteroids for the current week
-//            adapter.submitList(asteroids)
-//        }
-
         viewModel.todayAsteroid.observe(viewLifecycleOwner) { asteroids ->
             // Update the adapter with all asteroids
             adapter.submitList(asteroids)

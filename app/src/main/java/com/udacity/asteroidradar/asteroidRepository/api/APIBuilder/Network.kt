@@ -9,9 +9,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 
-private val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 
-object Network {
+class Network(moshi: Moshi) {
     private val retrofit = Retrofit.Builder()
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .addConverterFactory(MoshiConverterFactory.create(moshi))
@@ -22,3 +21,4 @@ object Network {
         retrofit.create(APIService::class.java)
     }
 }
+
