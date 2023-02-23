@@ -33,7 +33,7 @@ class MainFragment : Fragment() {
         binding.viewModel = viewModel
 
         // adapter setting
-        adapter = MainFragmentAdapter(MainFragmentAdapter.OnClickListener {
+        adapter = MainFragmentAdapter(MainFragmentAdapter.OnItemClickListener {
             findNavController().navigate(
                 MainFragmentDirections.actionShowDetail(it)
             )
